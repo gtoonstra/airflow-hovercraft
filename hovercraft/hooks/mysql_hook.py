@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,12 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apache-airflow[mysql,postgres] >= 1.8.1
-coverage
-flake8
-mock
-nose
-nose-exclude
-nose-ignore-docstring==0.2
-nose-timer
-rednose
+from airflow.hooks.mysql_hook import MySqlHook
+
+
+class HCMysqlHook(MySqlHook):
+    def __init__(self, *args, **kwargs):
+        super(MySqlHook, self).__init__(*args, **kwargs)
