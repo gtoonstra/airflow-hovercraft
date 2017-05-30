@@ -15,7 +15,10 @@ sudo: true
 dist: trusty
 language: python
   - "3.4"
-# command to install dependencies
+cache:
+  directories:
+    - $HOME/.wheelhouse/
+    - $HOME/.travis_cache/
 install:
   - pip install --upgrade pip
   - pip install tox
