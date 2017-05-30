@@ -11,6 +11,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apache-airflow[mysql,postgres] >= 1.8.1
-mysqlclient
-psycopg2
+max-line-length: 120
+strictness: medium
+pep8:
+  full: true
+  disable:
+    - E402  # module level import not at top of file
+uses:
+  - flask
+pylint:
+  disable:
+    - broad-except
+    - cyclic-import
+    - invalid-name
+    - locally-disabled
+    - super-on-old-class
+    - wrong-import-order
+    - wrong-import-position
+    - logging-format-interpolation
+  options:
+    docstring-min-length: 10

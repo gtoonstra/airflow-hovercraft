@@ -121,7 +121,7 @@ def do_setup():
         zip_safe=False,
         scripts=[],
         install_requires=[
-            'apache-airflow >= 1.8.1',
+            'apache-airflow[mysql,postgres] >= 1.8.1',
         ],
         extras_require={
             'devel': devel,

@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apache-airflow[mysql,postgres] >= 1.8.1
-mysqlclient
-psycopg2
+[report]
+omit =
+    tests/*
+    scripts/*
