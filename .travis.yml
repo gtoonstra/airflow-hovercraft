@@ -14,7 +14,29 @@
 sudo: true
 dist: trusty
 language: python
+jdk:
+  - oraclejdk8
+services:
+  - mysql
+  - postgresql
+addons:
+  apt:
+    packages:
+      - openssh-server
+      - mysql-server-5.6
+      - mysql-client-core-5.6
+      - mysql-client-5.6
+      - oracle-java8-installer
+      - python-selinux
+  postgresql: "9.2"
+python:
   - "3.4"
+env:
+  global:
+    - TRAVIS_CACHE=$HOME/.travis_cache/
+    - BOTO_CONFIG=/tmp/bogusvalue
+  matrix:
+    - TOX_ENV=py34-cdh-airflow_backend_mysql
 cache:
   directories:
     - $HOME/.wheelhouse/
@@ -23,8 +45,6 @@ install:
   - pip install --upgrade pip
   - pip install tox
   - pip install codecov
-  - pip install .
-  - pip install -r requirements.txt
 before_script:
   - mysql -e 'drop database if exists airflow; create database airflow' -u root
   - psql -c 'create database airflow;' -U postgres
