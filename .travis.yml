@@ -36,7 +36,7 @@ env:
     - TRAVIS_CACHE=$HOME/.travis_cache/
     - BOTO_CONFIG=/tmp/bogusvalue
   matrix:
-    - TOX_ENV=py34-cdh-airflow_backend_mysql
+    - TOX_ENV=py34-cdh-airflow-hovercraft_backend_mysql
 cache:
   directories:
     - $HOME/.wheelhouse/

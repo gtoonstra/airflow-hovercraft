@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 
 # Kept manually in sync with airflow.__version__
 version = imp.load_source(
-    'airflow-hovercraft.version', os.path.join('airflow-hovercraft', 'version.py')).version
+    'hovercraft.version', os.path.join('hovercraft', 'version.py')).version
 
 
 class Tox(TestCommand):
@@ -93,7 +93,7 @@ def git_version(version):
         return 'no_git_version'
 
 
-def write_version(filename=os.path.join(*['airflow-hovercraft',
+def write_version(filename=os.path.join(*['hovercraft',
                                           'git_version'])):
     text = "{}".format(git_version(version))
     with open(filename, 'w') as a:
@@ -116,7 +116,7 @@ def do_setup():
         license='Apache License 2.0',
         version=version,
         packages=find_packages(),
-        package_data={'': ["airflow-hovercraft/git_version"]},
+        package_data={'': ["hovercraft/git_version"]},
         include_package_data=True,
         zip_safe=False,
         scripts=[],

@@ -14,10 +14,8 @@
 apache-airflow[mysql,postgres] >= 1.8.1
 coverage
 flake8
-mysqlclient
 nose
 nose-exclude
 nose-ignore-docstring==0.2
 nose-timer
-psycopg2
 rednose

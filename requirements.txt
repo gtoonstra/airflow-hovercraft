@@ -12,5 +12,3 @@
 # limitations under the License.
 
 apache-airflow[mysql,postgres] >= 1.8.1
-mysqlclient
-psycopg2

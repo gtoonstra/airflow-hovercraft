@@ -40,7 +40,7 @@ if [ "${TRAVIS}" ]; then
       nose_args="--with-coverage \
     --cover-erase \
     --cover-html \
-    --cover-package=airflow-hovercraft \
+    --cover-package=hovercraft \
     --cover-html-dir=www/static/coverage \
     --with-ignore-docstrings \
     --rednose \
@@ -64,7 +64,7 @@ else
       nose_args="--with-coverage \
     --cover-erase \
     --cover-html \
-    --cover-package=airflow-hovercraft \
+    --cover-package=hovercraft \
     --cover-html-dir=www/static/coverage \
     --with-ignore-docstrings \
     --rednose \
