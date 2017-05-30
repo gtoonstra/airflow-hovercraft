@@ -100,6 +100,14 @@ def write_version(filename=os.path.join(*['airflow-hovercraft',
         a.write(text)
 
 
+devel = [
+    'nose',
+    'nose-ignore-docstring==0.2',
+    'nose-timer',
+    'rednose'
+]
+
+
 def do_setup():
     write_version()
     setup(
@@ -116,6 +124,7 @@ def do_setup():
             'apache-airflow >= 1.8.1',
         ],
         extras_require={
+            'devel': devel,
         },
         classifiers=[
             'Development Status :: 3 - Alpha',

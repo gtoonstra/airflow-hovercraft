@@ -12,3 +12,8 @@
 # limitations under the License.
 
 apache-airflow >= 1.8.1
+nose
+nose-exclude
+nose-ignore-docstring==0.2
+nose-timer
+rednose
