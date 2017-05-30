@@ -15,6 +15,6 @@
 from airflow.hooks.mysql_hook import MySqlHook
 
 
-class HCMysqlHook(MySqlHook):
+class HCMySqlHook(MySqlHook):
     def __init__(self, *args, **kwargs):
-        super(MySqlHook, self).__init__(*args, **kwargs)
+        super(HCMySqlHook, self).__init__(*args, **kwargs)

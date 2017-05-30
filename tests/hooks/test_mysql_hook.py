@@ -16,34 +16,42 @@
 import mock
 import unittest
 
-from airflow.hooks.dbapi_hook import DbApiHook
+from hovercraft.hooks.mysql_hook import HCMySqlHook
 
 
-class TestMySqlHook(unittest.TestCase):
+class TestHCMySqlHook(unittest.TestCase):
     def setUp(self):
-        super(TestMySqlHook, self).setUp()
+        super(TestHCMySqlHook, self).setUp()
 
-        self.cur = mock.MagicMock()
-        self.conn = conn = mock.MagicMock()
-        self.conn.cursor.return_value = self.cur
-
-        class HCMysqlHook(DbApiHook):
-            conn_name_attr = 'test_conn_id'
-            
-            def get_conn(self):
-                return conn
-
-        self.db_hook = HCMysqlHook()
+        self.db_hook = HCMySqlHook(mysql_conn_id='mysql_default',
+            schema='airflow_ci')
 
     def test_get_records(self):
-        statement = "SQL"
-        rows = [("hello",),
-                ("world",)]
+        statement = "SELECT * FROM baby_names WHERE baby_name = 'Earl'"
 
-        self.cur.fetchall.return_value = rows
+        rows = ((1880, "Earl", 0.002829, "boy"),)
 
         self.assertEqual(rows, self.db_hook.get_records(statement))
 
-        self.conn.close.assert_called_once()
-        self.cur.close.assert_called_once()
-        self.cur.execute.assert_called_once_with(statement)
+    def test_calls(self):
+        cur = mock.MagicMock()
+        conn = mock.MagicMock()
+        conn.cursor.return_value = cur
+        
+        class InstrumentedHook(HCMySqlHook):
+            conn_name_attr = 'mysql_default'
+
+            def get_conn(self):
+                return conn
+
+        db_hook = InstrumentedHook()
+
+        statement = "SELECT * FROM baby_names WHERE baby_name = 'Earl'"
+        rows = ((1880, "Earl", 0.002829, "boy"),)
+        cur.fetchall.return_value = rows
+
+        self.assertEqual(rows, db_hook.get_records(statement))
+
+        conn.close.assert_called_once()
+        cur.close.assert_called_once()
+        cur.execute.assert_called_once_with(statement)
