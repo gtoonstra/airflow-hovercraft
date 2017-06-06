@@ -21,19 +21,22 @@ root_path = os.path.join(mod_path, '..', '..', '..')
 sys.path.insert(0, root_path)
 
 
-@given('no special preconditions')
+@given('no specific state')
 def step_impl(context):
     pass
 
 
 @when('the {operator_type} is created')
 def step_impl(context, operator_type):
+    """
+    This step checks if it can instantiate
+    a class of a certain type
+    """
     try:
         context.exception = None
         s = operator_type.split(".")
         mod = ".".join(s[:len(s)-1])
         clz = s[len(s)-1]
-        print(mod, clz)
         MyClass = getattr(importlib.import_module(mod), clz)
         instance = MyClass(task_id='test')
     except Exception as e:
@@ -42,5 +45,9 @@ def step_impl(context, operator_type):
 
 @then('it does not raise an exception')
 def step_impl(context):
+    """
+    This step just checks if an exception was raised
+    in a previous step.
+    """
     if context.exception is not None:
         raise context.exception

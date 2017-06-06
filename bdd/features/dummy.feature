@@ -3,6 +3,6 @@ Feature: DummyOperator
   to verify that an operator is schedulable and executable.
 
   Scenario: DummyOperator can be created
-    Given no special preconditions
+    Given no specific state
     When the hovercraft.operators.dummy_operator.DummyOperator is created
     Then it does not raise an exception
