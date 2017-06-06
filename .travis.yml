@@ -22,15 +22,10 @@ services:
 addons:
   apt:
     packages:
-      - slapd
-      - ldap-utils
       - openssh-server
       - mysql-server-5.6
       - mysql-client-core-5.6
       - mysql-client-5.6
-      - krb5-user
-      - krb5-kdc
-      - krb5-admin-server
       - oracle-java8-installer
       - python-selinux
   postgresql: "9.2"
@@ -39,8 +34,6 @@ python:
 env:
   global:
     - TRAVIS_CACHE=$HOME/.travis_cache/
-    - KRB5_CONFIG=/etc/krb5.conf
-    - KRB5_KTNAME=/etc/airflow.keytab
     - BOTO_CONFIG=/tmp/bogusvalue
   matrix:
     - TOX_ENV=py34-hdp-airflow-hovercraft_backend_mysql
@@ -48,12 +41,6 @@ cache:
   directories:
     - $HOME/.wheelhouse/
     - $HOME/.travis_cache/
-before_install:
-  - yes | ssh-keygen -t rsa -C your_email@youremail.com -P '' -f ~/.ssh/id_rsa
-  - cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-  - ln -s ~/.ssh/authorized_keys ~/.ssh/authorized_keys2
-  - chmod 600 ~/.ssh/*
-  - jdk_switcher use oraclejdk8
 install:
   - pip install --upgrade pip
   - pip install tox
