@@ -16,10 +16,6 @@ import os
 import sys
 import importlib
 
-mod_path = os.path.dirname(os.path.abspath(__file__))
-root_path = os.path.join(mod_path, '..', '..', '..')
-sys.path.insert(0, root_path)
-
 
 @given('no specific state')
 def step_impl(context):
