@@ -17,9 +17,24 @@ import sys
 import importlib
 
 
+def get_default_context():
+    return {}
+
+
 @given('no specific state')
 def step_impl(context):
     pass
+
+
+@given('a specific initializer')
+def step_impl(context):
+    if context.table is not None:
+        row = context.table[0]
+        headers = context.table.headings
+        d = {}
+        for header in headers:
+            d[header] = row[header]
+        context.initializer = d
 
 
 @when('the {operator_type} is created')
@@ -34,12 +49,28 @@ def step_impl(context, operator_type):
         mod = ".".join(s[:len(s)-1])
         clz = s[len(s)-1]
         MyClass = getattr(importlib.import_module(mod), clz)
-        instance = MyClass(task_id='test')
+        
+        d = {}
+        if "initializer" in context:
+            d = context.initializer
+            d['task_id'] = 'test'
+            context.instance = MyClass(**d)
+        else:
+            context.instance = MyClass(task_id='test')
     except Exception as e:
         context.exception = e
 
 
-@then('it does not raise an exception')
+@then('the operator is executed')
+def step_impl(context):
+    try:
+        ctxt = get_default_context()
+        context.instance.execute(ctxt)
+    except Exception as e:
+        context.exception = e
+
+
+@then('no exception is raised')
 def step_impl(context):
     """
     This step just checks if an exception was raised

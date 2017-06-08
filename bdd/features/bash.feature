@@ -11,12 +11,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-Feature: DummyOperator
-  The dummy operator serves no real purpose in airflow, except
-  to verify that an operator can be scheduled and is executable.
+Feature: BashOperator
+  The bash operator executes a bash command or a script.
 
-  Scenario: DummyOperator can be created
-    Given no specific state
-    When the airflow.operators.dummy_operator.DummyOperator is created
+  Scenario: BashOperator can be created
+    Given a specific initializer
+    | bash_command  |
+    | echo 1        |
+    When the airflow.operators.bash_operator.BashOperator is created
+    Then no exception is raised
+
+  Scenario: When xcom_push is set, it returns value of last line
+    Given a specific initializer
+    | bash_command  |  xcom_push |
+    | echo 1        |  True      |
+    When the airflow.operators.bash_operator.BashOperator is created
     Then the operator is executed
     Then no exception is raised
