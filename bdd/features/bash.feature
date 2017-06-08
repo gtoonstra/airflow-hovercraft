@@ -28,3 +28,4 @@ Feature: BashOperator
     When the airflow.operators.bash_operator.BashOperator is created
     Then the operator is executed
     Then no exception is raised
+    Then the return value is 1

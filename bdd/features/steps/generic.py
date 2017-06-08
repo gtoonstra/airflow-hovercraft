@@ -65,7 +65,7 @@ def step_impl(context, operator_type):
 def step_impl(context):
     try:
         ctxt = get_default_context()
-        context.instance.execute(ctxt)
+        context.return_value = context.instance.execute(ctxt)
     except Exception as e:
         context.exception = e
 
@@ -78,3 +78,15 @@ def step_impl(context):
     """
     if context.exception is not None:
         raise context.exception
+
+
+@then('the return value is {return_value}')
+def step_impl(context, return_value):
+    """
+    This step just checks if an exception was raised
+    in a previous step.
+    """
+    if context.return_value is not None:
+        assert str(context.return_value) == str(return_value)
+    else:
+        raise Exception("No return value from operator")
