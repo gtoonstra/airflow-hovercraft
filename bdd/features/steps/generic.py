@@ -16,11 +16,12 @@ import os
 import sys
 import importlib
 from unittest.mock import patch
-from lib.fake_hook import FakeTrueHook
-from lib.fake_hook import FakeFalseHook
-from lib.fake_hook import FakeMultiTrueHook
-from lib.fake_hook import FakeMultiTrueOneFalseHook
-from lib.fake_hook import FakeNoneHook
+from bddlib.fake_hook import FakeTrueHook
+from bddlib.fake_hook import FakeFalseHook
+from bddlib.fake_hook import FakeMultiTrueHook
+from bddlib.fake_hook import FakeMultiTrueOneFalseHook
+from bddlib.fake_hook import FakeNoneHook
+from bddlib.fake_hook import Fake42Hook
 from airflow.hooks.base_hook import BaseHook
 
 
@@ -76,6 +77,13 @@ def step_impl(context):
 def step_impl(context):
     def get_hook(conn_id='fake'):
         return FakeNoneHook()
+    BaseHook.get_hook = get_hook
+
+
+@given('hook mocked with Fake42Hook')
+def step_impl(context):
+    def get_hook(conn_id='fake'):
+        return Fake42Hook()
     BaseHook.get_hook = get_hook
 
 
