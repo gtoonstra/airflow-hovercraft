@@ -31,7 +31,7 @@ Feature: CheckOperator
     | "fake_sql" | "fake"    |
     When the airflow.operators.check_operator.CheckOperator is created
     Then the operator is executed
-    Then no exception is raised
+    And no exception is raised
 
   Scenario: CheckOperator raises exception on False
     Given hook mocked with FakeHook
@@ -42,7 +42,7 @@ Feature: CheckOperator
     | "fake_sql" | "fake"    |
     When the airflow.operators.check_operator.CheckOperator is created
     Then the operator is executed
-    Then the exception AirflowException is raised
+    And the exception AirflowException is raised
 
   Scenario: CheckOperator can deal with multiple true's
     Given hook mocked with FakeHook
@@ -53,7 +53,7 @@ Feature: CheckOperator
     | "fake_sql" | "fake"    |
     When the airflow.operators.check_operator.CheckOperator is created
     Then the operator is executed
-    Then no exception is raised
+    And no exception is raised
 
   Scenario: CheckOperator raises exception when one value is False
     Given hook mocked with FakeHook
@@ -64,7 +64,7 @@ Feature: CheckOperator
     | "fake_sql" | "fake"    |
     When the airflow.operators.check_operator.CheckOperator is created
     Then the operator is executed
-    Then the exception AirflowException is raised
+    And the exception AirflowException is raised
 
   Scenario: CheckOperator raises exception when None is returned
     Given hook mocked with FakeHook
@@ -75,4 +75,4 @@ Feature: CheckOperator
     | "fake_sql" | "fake"    |
     When the airflow.operators.check_operator.CheckOperator is created
     Then the operator is executed
-    Then the exception AirflowException is raised
+    And the exception AirflowException is raised

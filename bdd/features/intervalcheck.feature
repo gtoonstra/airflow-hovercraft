@@ -31,7 +31,7 @@ Feature: IntervalCheckOperator
     | "fake"    | "any"   | {'a': 1.1, 'b': 1.1, 'c': 1.1 } |
     When the airflow.operators.check_operator.IntervalCheckOperator is created
     Then the operator is executed
-    Then no exception is raised
+    And no exception is raised
 
   Scenario: IntervalCheckOperator 
     Given hook mocked with FakeHook
@@ -42,4 +42,4 @@ Feature: IntervalCheckOperator
     | "fake"    | "any"   | {'a': 1.0, 'b': 1.1, 'c': 0.9 } |
     When the airflow.operators.check_operator.IntervalCheckOperator is created
     Then the operator is executed
-    Then the exception AirflowException is raised
+    And the exception AirflowException is raised

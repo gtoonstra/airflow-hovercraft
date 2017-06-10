@@ -19,4 +19,4 @@ Feature: DummyOperator
     Given no specific state
     When the airflow.operators.dummy_operator.DummyOperator is created
     Then the operator is executed
-    Then no exception is raised
+    And no exception is raised

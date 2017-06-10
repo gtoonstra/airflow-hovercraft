@@ -27,5 +27,5 @@ Feature: BashOperator
     | "echo 1"      |  True      |
     When the airflow.operators.bash_operator.BashOperator is created
     Then the operator is executed
-    Then no exception is raised
-    Then the return value is 1
+    And no exception is raised
+    And the return value is 1

@@ -31,7 +31,7 @@ Feature: ValueCheckOperator
     | "fake_sql" | "fake"    |  None      |
     When the airflow.operators.check_operator.ValueCheckOperator is created
     Then the operator is executed
-    Then the exception AirflowException is raised
+    And the exception AirflowException is raised
 
   Scenario: ValueCheckOperator can deal with False result
     Given hook mocked with FakeHook
@@ -42,7 +42,7 @@ Feature: ValueCheckOperator
     | "fake_sql" | "fake"    |  False     |
     When the airflow.operators.check_operator.ValueCheckOperator is created
     Then the operator is executed
-    Then no exception is raised
+    And no exception is raised
 
   Scenario: ValueCheckOperator can deal with True result
     Given hook mocked with FakeHook
@@ -53,7 +53,7 @@ Feature: ValueCheckOperator
     | "fake_sql" | "fake"    |  True      |
     When the airflow.operators.check_operator.ValueCheckOperator is created
     Then the operator is executed
-    Then no exception is raised
+    And no exception is raised
 
   Scenario: ValueCheckOperator can deal with float result
     Given hook mocked with FakeHook
@@ -64,7 +64,7 @@ Feature: ValueCheckOperator
     | "fake_sql" | "fake"    |  42.0      |
     When the airflow.operators.check_operator.ValueCheckOperator is created
     Then the operator is executed
-    Then no exception is raised
+    And no exception is raised
 
   Scenario: ValueCheckOperator can deal with result within tolerance
     Given hook mocked with FakeHook
@@ -75,7 +75,7 @@ Feature: ValueCheckOperator
     | "fake_sql" | "fake"    |  41.991    |  0.001    |
     When the airflow.operators.check_operator.ValueCheckOperator is created
     Then the operator is executed
-    Then no exception is raised
+    And no exception is raised
 
   Scenario: ValueCheckOperator raises exception on value outside tolerance
     Given hook mocked with FakeHook
@@ -86,7 +86,7 @@ Feature: ValueCheckOperator
     | "fake_sql" | "fake"    |  42.991    |  0.001    |
     When the airflow.operators.check_operator.ValueCheckOperator is created
     Then the operator is executed
-    Then the exception AirflowException is raised
+    And the exception AirflowException is raised
 
   Scenario: ValueCheckOperator can deal with multiple return values
     Given hook mocked with FakeHook
@@ -97,7 +97,7 @@ Feature: ValueCheckOperator
     | "fake_sql" | "fake"    |  42.0      |
     When the airflow.operators.check_operator.ValueCheckOperator is created
     Then the operator is executed
-    Then no exception is raised
+    And no exception is raised
 
   Scenario: ValueCheckOperator can deal with string result
     Given hook mocked with FakeHook
@@ -108,7 +108,7 @@ Feature: ValueCheckOperator
     | "fake_sql" | "fake"    | "hello"    |
     When the airflow.operators.check_operator.ValueCheckOperator is created
     Then the operator is executed
-    Then no exception is raised
+    And no exception is raised
 
   Scenario: ValueCheckOperator raises exception when None is returned
     Given hook mocked with FakeHook
@@ -119,4 +119,4 @@ Feature: ValueCheckOperator
     | "fake_sql" | "fake"    | "hello"    |
     When the airflow.operators.check_operator.ValueCheckOperator is created
     Then the operator is executed
-    Then the exception AirflowException is raised
+    And the exception AirflowException is raised
