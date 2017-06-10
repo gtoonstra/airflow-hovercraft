@@ -12,11 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
-import sys
 import importlib
 import ast
-from unittest.mock import patch
 from bddlib.fake_hook import FakeHook
 from airflow.hooks.base_hook import BaseHook
 
@@ -67,7 +64,7 @@ def step_impl(context, operator_type):
         mod = ".".join(s[:len(s)-1])
         clz = s[len(s)-1]
         MyClass = getattr(importlib.import_module(mod), clz)
-        
+
         d = {}
         if "initializer" in context:
             d = context.initializer

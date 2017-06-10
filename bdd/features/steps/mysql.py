@@ -12,9 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-class FakeHook(object):
-    def __init__(self, params):
-        self.retvalue = params['value']
+import ast
+from bddlib.file_hook import FileHook
+from airflow.hooks import mysql_hook
 
-    def get_first(self, sql, parameters=None):
-        return self.retvalue
+
+@given('mysql hook mocked out')
+def step_impl(context):
+    mysql_hook.MySqlHook = FileHook

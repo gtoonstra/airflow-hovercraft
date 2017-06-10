@@ -19,4 +19,6 @@ BASE_DIR=`dirname ${SCRIPT}`
 export PYTHONPATH=$BASE_DIR:$PYTHONPATH
 echo $PYTHONPATH
 
-(cd $BASE_DIR/bdd; behave)
+export AIRFLOW_USE_NEW_IMPORTS=TRUE
+
+(cd $BASE_DIR/bdd; behave $@)
