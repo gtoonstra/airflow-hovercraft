@@ -17,52 +17,62 @@ Feature: CheckOperator
   Scenario: CheckOperator can be created
     Given no specific state
     And a specific initializer
-    | sql      | conn_id |
-    | fake_sql | fake    |
+    | sql        | conn_id   |
+    | "fake_sql" | "fake"    |
     When the airflow.operators.check_operator.CheckOperator is created
     Then no exception is raised
 
   Scenario: CheckOperator returns good result
-    Given hook mocked with TrueHook
+    Given hook mocked with FakeHook
+    | value   |
+    | (True,) |
     And a specific initializer
-    | sql      | conn_id |
-    | fake_sql | fake    |
+    | sql        | conn_id   |
+    | "fake_sql" | "fake"    |
     When the airflow.operators.check_operator.CheckOperator is created
     Then the operator is executed
     Then no exception is raised
 
   Scenario: CheckOperator raises exception on False
-    Given hook mocked with FalseHook
+    Given hook mocked with FakeHook
+    | value   |
+    | (False,) |
     And a specific initializer
-    | sql      | conn_id |
-    | fake_sql | fake    |
+    | sql        | conn_id   |
+    | "fake_sql" | "fake"    |
     When the airflow.operators.check_operator.CheckOperator is created
     Then the operator is executed
     Then the exception AirflowException is raised
 
   Scenario: CheckOperator can deal with multiple true's
-    Given hook mocked with MultiTrueHook
+    Given hook mocked with FakeHook
+    | value             |
+    | (True,True,True,) |
     And a specific initializer
-    | sql      | conn_id |
-    | fake_sql | fake    |
+    | sql        | conn_id   |
+    | "fake_sql" | "fake"    |
     When the airflow.operators.check_operator.CheckOperator is created
     Then the operator is executed
     Then no exception is raised
 
   Scenario: CheckOperator raises exception when one value is False
-    Given hook mocked with FakeMultiTrueOneFalseHook
+    Given hook mocked with FakeHook
+    | value             |
+    | (True,True,False,) |
     And a specific initializer
-    | sql      | conn_id |
-    | fake_sql | fake    |
+    | sql        | conn_id   |
+    | "fake_sql" | "fake"    |
     When the airflow.operators.check_operator.CheckOperator is created
     Then the operator is executed
     Then the exception AirflowException is raised
 
   Scenario: CheckOperator raises exception when None is returned
-    Given hook mocked with FakeNoneHook
+    Given hook mocked with FakeHook
+    | value  |
+    | None   |
     And a specific initializer
-    | sql      | conn_id |
-    | fake_sql | fake    |
+    | sql        | conn_id   |
+    | "fake_sql" | "fake"    |
     When the airflow.operators.check_operator.CheckOperator is created
     Then the operator is executed
     Then the exception AirflowException is raised

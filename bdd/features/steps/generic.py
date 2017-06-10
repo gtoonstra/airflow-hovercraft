@@ -15,13 +15,9 @@
 import os
 import sys
 import importlib
+import ast
 from unittest.mock import patch
-from bddlib.fake_hook import FakeTrueHook
-from bddlib.fake_hook import FakeFalseHook
-from bddlib.fake_hook import FakeMultiTrueHook
-from bddlib.fake_hook import FakeMultiTrueOneFalseHook
-from bddlib.fake_hook import FakeNoneHook
-from bddlib.fake_hook import Fake42Hook
+from bddlib.fake_hook import FakeHook
 from airflow.hooks.base_hook import BaseHook
 
 
@@ -41,49 +37,21 @@ def step_impl(context):
         headers = context.table.headings
         d = {}
         for header in headers:
-            d[header] = row[header]
+            d[header] = ast.literal_eval(row[header])
         context.initializer = d
 
 
-@given('hook mocked with TrueHook')
+@given('hook mocked with FakeHook')
 def step_impl(context):
+    returned_data = {}
+    if context.table is not None:
+        row = context.table[0]
+        headers = context.table.headings
+        for header in headers:
+            returned_data[header] = ast.literal_eval(row[header])
+
     def get_hook(conn_id='fake'):
-        return FakeTrueHook()
-    BaseHook.get_hook = get_hook
-
-
-@given('hook mocked with FalseHook')
-def step_impl(context):
-    def get_hook(conn_id='fake'):
-        return FakeFalseHook()
-    BaseHook.get_hook = get_hook
-
-
-@given('hook mocked with MultiTrueHook')
-def step_impl(context):
-    def get_hook(conn_id='fake'):
-        return FakeMultiTrueHook()
-    BaseHook.get_hook = get_hook
-
-
-@given('hook mocked with FakeMultiTrueOneFalseHook')
-def step_impl(context):
-    def get_hook(conn_id='fake'):
-        return FakeMultiTrueOneFalseHook()
-    BaseHook.get_hook = get_hook
-
-
-@given('hook mocked with FakeNoneHook')
-def step_impl(context):
-    def get_hook(conn_id='fake'):
-        return FakeNoneHook()
-    BaseHook.get_hook = get_hook
-
-
-@given('hook mocked with Fake42Hook')
-def step_impl(context):
-    def get_hook(conn_id='fake'):
-        return Fake42Hook()
+        return FakeHook(returned_data)
     BaseHook.get_hook = get_hook
 
 

@@ -15,31 +15,9 @@
 from airflow.hooks.base_hook import BaseHook
 
 
-class FakeTrueHook(object):
+class FakeHook(object):
+    def __init__(self, params):
+        self.retvalue = params['value']
+
     def get_first(self, sql, parameters=None):
-        return (True,)
-
-
-class FakeFalseHook(object):
-    def get_first(self, sql, parameters=None):
-        return (False,)
-
-
-class FakeMultiTrueHook(object):
-    def get_first(self, sql, parameters=None):
-        return (True,True,True,)
-
-
-class FakeMultiTrueOneFalseHook(object):
-    def get_first(self, sql, parameters=None):
-        return (True,True,False,)
-
-
-class FakeNoneHook(object):
-    def get_first(self, sql, parameters=None):
-        return None
-
-
-class Fake42Hook(object):
-    def get_first(self, sql, parameters=None):
-        return (42.0,)
+        return self.retvalue

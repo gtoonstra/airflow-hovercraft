@@ -16,15 +16,15 @@ Feature: BashOperator
 
   Scenario: BashOperator can be created
     Given a specific initializer
-    | bash_command  |
-    | echo 1        |
+    | bash_command   |
+    | "echo 1"       |
     When the airflow.operators.bash_operator.BashOperator is created
     Then no exception is raised
 
   Scenario: When xcom_push is set, it returns value of last line
     Given a specific initializer
     | bash_command  |  xcom_push |
-    | echo 1        |  True      |
+    | "echo 1"      |  True      |
     When the airflow.operators.bash_operator.BashOperator is created
     Then the operator is executed
     Then no exception is raised
