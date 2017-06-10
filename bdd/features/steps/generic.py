@@ -15,6 +15,13 @@
 import os
 import sys
 import importlib
+from unittest.mock import patch
+from lib.fake_hook import FakeTrueHook
+from lib.fake_hook import FakeFalseHook
+from lib.fake_hook import FakeMultiTrueHook
+from lib.fake_hook import FakeMultiTrueOneFalseHook
+from lib.fake_hook import FakeNoneHook
+from airflow.hooks.base_hook import BaseHook
 
 
 def get_default_context():
@@ -35,6 +42,41 @@ def step_impl(context):
         for header in headers:
             d[header] = row[header]
         context.initializer = d
+
+
+@given('hook mocked with TrueHook')
+def step_impl(context):
+    def get_hook(conn_id='fake'):
+        return FakeTrueHook()
+    BaseHook.get_hook = get_hook
+
+
+@given('hook mocked with FalseHook')
+def step_impl(context):
+    def get_hook(conn_id='fake'):
+        return FakeFalseHook()
+    BaseHook.get_hook = get_hook
+
+
+@given('hook mocked with MultiTrueHook')
+def step_impl(context):
+    def get_hook(conn_id='fake'):
+        return FakeMultiTrueHook()
+    BaseHook.get_hook = get_hook
+
+
+@given('hook mocked with FakeMultiTrueOneFalseHook')
+def step_impl(context):
+    def get_hook(conn_id='fake'):
+        return FakeMultiTrueOneFalseHook()
+    BaseHook.get_hook = get_hook
+
+
+@given('hook mocked with FakeNoneHook')
+def step_impl(context):
+    def get_hook(conn_id='fake'):
+        return FakeNoneHook()
+    BaseHook.get_hook = get_hook
 
 
 @when('the {operator_type} is created')
@@ -78,6 +120,18 @@ def step_impl(context):
     """
     if context.exception is not None:
         raise context.exception
+
+
+@then('the exception {exception_type} is raised')
+def step_impl(context, exception_type):
+    """
+    This step just checks if an exception was raised
+    in a previous step.
+    """
+    if context.exception is None:
+        raise Exception("No exception was raised when one was expected")
+
+    assert type(context.exception).__name__ == exception_type
 
 
 @then('the return value is {return_value}')
