@@ -9,25 +9,29 @@ A reference implementation of hooks and operators for airflow
 
 Create and activate a virtual env:
 
-```python3 -m venv env
+```
+python3 -m venv env
 source env/bin/activate
 ```
 
 Install the CI requirements:
 
-```cd scripts/ci
+```
+cd scripts/ci
 pip install -r requirements.txt
 ```
 
 Run the tests from the root directory:
 
-```cd ../..
+```
+cd ../..
 ./run_unit_tests.sh
 ```
 
 Run the "behave" tests:
 
-```./run_behave.sh
+```
+./run_behave.sh
 ```
 
 
@@ -35,11 +39,13 @@ Run the "behave" tests:
 
 Install the "requirements.txt"  from the root directory:
 
-```cd /
+```
+cd /
 pip install -r requirements.txt
 ```
 
 Then install the project through setup.py:
 
-```python setup.py install
+```
+python setup.py install
 ```
