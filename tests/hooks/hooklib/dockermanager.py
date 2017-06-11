@@ -55,19 +55,3 @@ class DockerManager(object):
         self.stop_container()
         self.pull_container()
         self.run_container()
-
-containers = { "mysql-hook": 
-        { "image": "mysql:8.0",
-          "environment": { "MYSQL_ROOT_PASSWORD": SECRET_PW },
-          "ports": {'3306/tcp': 6603}
-        }
-    }
-
-for container_name, container_config in containers.items():
-    manager = DockerManager(
-        image_name=container_config['image'],
-        container_name=container_name,
-        environment=container_config['environment'],
-        ports=container_config['ports'] if 'ports' in container_config else {})
-
-    manager.refresh()
