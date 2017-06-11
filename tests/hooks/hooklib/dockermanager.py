@@ -28,7 +28,7 @@ class DockerManager(object):
         self.image_name = image_name
         self.container_name = container_name
         self.environment = environment
-        self.client = docker.from_env()
+        self.client = docker.from_env(version='auto')
         self.ports = ports
 
     def stop_container(self):
