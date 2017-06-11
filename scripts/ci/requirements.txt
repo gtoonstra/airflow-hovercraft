@@ -14,6 +14,7 @@
 apache-airflow[mysql,postgres,hive] == 1.8.1
 behave
 coverage
+docker
 flake8
 mock
 nose
