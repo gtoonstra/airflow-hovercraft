@@ -70,4 +70,4 @@ class FileHook(object):
             overwrite=True,
             partition=None,
             recreate=False):
-        pass
+        print(filepath)
