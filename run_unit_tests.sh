@@ -25,6 +25,8 @@ export AIRFLOW__TESTSECTION__TESTKEY=testvalue
 # use Airflow 2.0-style imports
 export AIRFLOW_USE_NEW_IMPORTS=1
 
+export DOCKER_API_VERSION=1.24
+
 # any argument received is overriding the default nose execution arguments:
 
 nose_args=$@
