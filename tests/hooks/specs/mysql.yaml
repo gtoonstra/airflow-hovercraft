@@ -1,0 +1,13 @@
+# A very simple YAML document
+
+name:  mysql_hook_test
+image: mysql:8.0
+environment:
+  MYSQL_ROOT_PASSWORD: secret
+ports:
+  3306/tcp: 6604
+uptest: mysql -psecret -u root -h 127.0.0.1 -P 6604 -D mysql -e 'SELECT 1'
+provisioning:
+  script: ${PWD}/tests/hooks/provscripts/mysql.sh -h 127.0.0.1 -p 6604 -u root -s secret
+  environment:
+    FOO: bar

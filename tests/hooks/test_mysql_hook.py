@@ -12,25 +12,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .hooklib.basehooktest import BaseHookTest
+import sys
 
 from airflow.hooks.mysql_hook import MySqlHook
 from airflow import configuration
 from airflow import models
 from airflow.utils import db
+from hovertools import command_line
+
+from .hooklib.basehooktest import BaseHookTest
+
+# This catches sys.exit() calls, which are called by the Click library.
+# If this is not done, all nosetests fail.
+sys.exit = lambda *x: None
+TMP_REPO_DIR = 'tmp'
 
 
-class TestMySqlHook(BaseHookTest):
+class MySqlHookTest(BaseHookTest):
     def __init__(self, *args, **kwargs):
-        super(TestMySqlHook, self).__init__('mysql:8.0',
-                                            'mysql_hook_test',
-                                            {'MYSQL_ROOT_PASSWORD': 'secret'},
-                                            {'3306/tcp': 6604},
-                                            *args, 
+        super(MySqlHookTest, self).__init__('tests/hooks/specs/mysql.yaml',
+                                            *args,
                                             **kwargs)
 
     def setUp(self):
-        super(TestMySqlHook, self).setUp()
+        super(MySqlHookTest, self).setUp()
+        command_line.cli(['--repo', TMP_REPO_DIR, 'refresh', 'mysql_hook_test'])
+
         configuration.load_test_config()
         db.merge_conn(
                 models.Connection(
@@ -39,7 +46,11 @@ class TestMySqlHook(BaseHookTest):
                         password='secret', schema='mysql'))
         self.db_hook = MySqlHook(mysql_conn_id='mysql_hook_test', schema='mysql')
 
-    def test_get_records(self):
+    def tearDown(self):
+        pass
+
+    def test_records(self):
         statement = "SELECT * FROM user"
         rows = self.db_hook.get_records(statement)
         print(rows)
+        assert False

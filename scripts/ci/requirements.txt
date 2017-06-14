@@ -16,9 +16,11 @@ behave
 coverage
 docker
 flake8
+hovertools
 mock
 nose
 nose-exclude
 nose-ignore-docstring==0.2
 nose-timer
 rednose
+wheel

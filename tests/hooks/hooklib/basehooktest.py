@@ -13,27 +13,16 @@
 # limitations under the License.
 
 import unittest
-import time
-from .dockermanager import DockerManager
+from hovertools import command_line
+
+
+TMP_REPO_DIR = 'tmp'
 
 
 class BaseHookTest(unittest.TestCase):
-    def __init__(self, 
-                 docker_image_name, 
-                 container_name, 
-                 environment, 
-                 ports, 
-                 *args, 
+    def __init__(self,
+                 specfile,
+                 *args,
                  **kwargs):
         super(BaseHookTest, self).__init__(*args, **kwargs)
-        self.docker_manager = DockerManager(docker_image_name, 
-                                            container_name,
-                                            environment,
-                                            ports)
-
-    def setUp(self):
-        super(BaseHookTest, self).setUp()
-        self.docker_manager.refresh()
-        # The docker container takes a while to start, so wait 10s before
-        # trying anything
-        time.sleep(20)
+        command_line.cli(['--repo', TMP_REPO_DIR, 'register', specfile])

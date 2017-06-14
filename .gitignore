@@ -102,4 +102,5 @@ ENV/
 
 rat-results.txt
 www
+tmp/
 

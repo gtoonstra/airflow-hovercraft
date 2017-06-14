@@ -13,3 +13,5 @@
 
 apache-airflow[mysql,postgres] == 1.8.1
 docker
+hovertools
+wheel
