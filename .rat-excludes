@@ -21,6 +21,5 @@ CHANGELOG.txt
 .*zip
 www
 rat-results.txt
-*.yaml
-*.eyaml
-tests/**/*.sh
+.*yaml
+.*eyaml
