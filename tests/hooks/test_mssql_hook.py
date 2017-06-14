@@ -14,7 +14,7 @@
 
 import sys
 
-from airflow.hooks.mysql_hook import MySqlHook
+from airflow.hooks.mssql_hook import MsSqlHook
 from airflow import configuration
 from airflow import models
 from airflow.utils import db
@@ -28,27 +28,27 @@ sys.exit = lambda *x: None
 TMP_REPO_DIR = 'tmp'
 
 
-class MySqlHookTest(BaseHookTest):
+class MsSqlHookTest(BaseHookTest):
     def __init__(self, *args, **kwargs):
-        super(MySqlHookTest, self).__init__('tests/hooks/specs/mysql.yaml',
+        super(MsSqlHookTest, self).__init__('tests/hooks/specs/mssql.yaml',
                                             *args,
                                             **kwargs)
 
     def setUp(self):
-        super(MySqlHookTest, self).setUp()
-        command_line.cli(['--repo', TMP_REPO_DIR, 'refresh', 'mysql_hook_test'])
+        super(MsSqlHookTest, self).setUp()
+        command_line.cli(['--repo', TMP_REPO_DIR, 'refresh', 'mssql_hook_test'])
 
         configuration.load_test_config()
         db.merge_conn(
                 models.Connection(
-                        conn_id='mysql_hook_test', conn_type='mysql',
-                        host='127.0.0.1', port=6604, login='root',
-                        password='secret', schema='mysql'))
-        self.db_hook = MySqlHook(mysql_conn_id='mysql_hook_test', schema='mysql')
+                        conn_id='mssql_hook_test', conn_type='mssql',
+                        host='localhost', port=1433, login='SA',
+                        password=u'secret123_', schema='master'))
+        self.db_hook = MsSqlHook(mssql_conn_id='mssql_hook_test', schema='master')
 
     def tearDown(self):
         pass
 
     def test_records(self):
-        statement = "SELECT * FROM user"
+        statement = "select * from master.dbo.sysprocesses"
         rows = self.db_hook.get_records(statement)

@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apache-airflow[mysql,postgres,hive] == 1.8.1
+apache-airflow[all] == 1.8.1
 behave
 coverage
 docker
