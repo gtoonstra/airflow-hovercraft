@@ -35,4 +35,4 @@ function fail {
 }
 
 export PGPASSWORD=$secret
-psql -U $user -p $port -h $host -e 'create database test' || fail "Could not create database"
+psql -U $user -p $port -h $host -c 'create database test' || fail "Could not create database"

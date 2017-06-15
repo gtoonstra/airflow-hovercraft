@@ -31,8 +31,8 @@ TMP_REPO_DIR = 'tmp'
 class PostgresHookTest(BaseHookTest):
     def __init__(self, *args, **kwargs):
         super(PostgresHookTest, self).__init__('tests/hooks/specs/postgres.yaml',
-                                            *args,
-                                            **kwargs)
+                                               *args,
+                                               **kwargs)
 
     def setUp(self):
         super(PostgresHookTest, self).setUp()
@@ -40,11 +40,11 @@ class PostgresHookTest(BaseHookTest):
 
         configuration.load_test_config()
         db.merge_conn(
-                models.Connection(
-                        conn_id='postgres_hook_test', conn_type='postgres',
-                        host='127.0.0.1', port=5433, login='postgres',
-                        password='secret', schema='postgres'))
-        self.db_hook = PostgresHook(mysql_conn_id='postgres_hook_test', schema='postgres')
+            models.Connection(
+                conn_id='postgres_hook_test', conn_type='postgres',
+                host='127.0.0.1', port=5434, login='postgres',
+                password='secret', schema='postgres'))
+        self.db_hook = PostgresHook(postgres_conn_id='postgres_hook_test', schema='postgres')
 
     def tearDown(self):
         pass
