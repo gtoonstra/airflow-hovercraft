@@ -51,16 +51,17 @@ function fail {
 }
 
 export CONTAINER=$container
-docker cp hooktests/hooks/data/baby_names.csv ${CONTAINER}:/home/cloudera/baby_names.csv
 
-docker exec -ti ${CONTAINER} /bin/bash -c "beeline << EOF
-!connect jdbc:hive2://localhost:10000 hive hive
-create table baby_names(
-    year STRING,
-    name STRING,
-    percent FLOAT,
-    sex  STRING
-);
-load data local inpath '/home/cloudera/baby_names.csv' into table baby_names;
-EOF
-exit"
+docker exec -ti ${CONTAINER} /bin/bash -c "mkdir /home/example1 && \
+            mkdir /home/example2 && \
+            mkdir /home/public && exit"
+
+docker exec -ti ${CONTAINER} /bin/bash -c "/usr/bin/samba.sh -u \"example1;badpass\" \
+            -u \"example2;badpass\" \
+            -s \"public;/home/public\" \
+            -s \"users;/srv;no;no;no;example1,example2\" \
+            -s \"example1 private;/home/example1;no;no;no;example1\" \
+            -s \"example2 private;/home/example2;no;no;no;example2\" \
+ && exit"
+
+docker restart ${CONTAINER}
