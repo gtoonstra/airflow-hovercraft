@@ -8,9 +8,5 @@ ports:
   3306/tcp: 6604
 uptest: 
   script: mysql -psecret -u root -h 127.0.0.1 -P 6604 -D mysql -e 'SELECT 1'
-  environment:
-    FOO: bar
 provisioning:
   script: ${PWD}/hooktests/hooks/provscripts/mysql.sh -h 127.0.0.1 -p 6604 -u root -s secret
-  environment:
-    FOO: bar

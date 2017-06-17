@@ -1,0 +1,21 @@
+# A very simple YAML document
+
+name:  hive_hook_test
+image: cloudera/quickstart:latest
+environment:
+  FOO: bar
+options:
+  hostname: quickstart.cloudera
+  privileged: true
+  tty: true
+  command: /usr/bin/docker-quickstart
+ports:
+  8888/tcp: 8888
+  10000/tcp: 10000
+  7180/tcp: 7180
+uptest: 
+  script: docker exec -it ${CONTAINER_ID} ps --no-headers -ef -q 1 | grep -v docker-quickstart
+  retries: 10
+  delay: 15
+provisioning:
+  script: ${PWD}/hooktests/hooks/provscripts/hive.sh -h 127.0.0.1 -p 10000 -u hive -s secret -c ${CONTAINER_ID}
