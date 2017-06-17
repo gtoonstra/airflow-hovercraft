@@ -15,7 +15,7 @@
 import os
 import sys
 
-from airflow.hooks.samba_hook import SambaHook
+from hovercraft.hooks.samba_hook import SambaHook
 from airflow import configuration
 from airflow import models
 from airflow.utils import db
@@ -44,13 +44,13 @@ class SambaHookTest(BaseHookTest):
                 models.Connection(
                         conn_id='samba_hook_test', conn_type='samba',
                         host='localhost', login='example1',
-                        password='badpass', schema='public'))
+                        password='badpass', schema='example1 private'))
         self.samba_hook = SambaHook(samba_conn_id='samba_hook_test')
 
     def tearDown(self):
         pass
 
     def test_share(self):
-        local_dir = os.path.basename(__file__)
+        local_dir = os.path.dirname(__file__)
         datafile = os.path.join(local_dir, 'data', 'daily_report.csv')
         rows = self.samba_hook.push_from_local('daily_report.csv', datafile)

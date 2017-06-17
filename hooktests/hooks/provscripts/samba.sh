@@ -54,14 +54,24 @@ export CONTAINER=$container
 
 docker exec -ti ${CONTAINER} /bin/bash -c "mkdir /home/example1 && \
             mkdir /home/example2 && \
-            mkdir /home/public && exit"
+            mkdir /home/public && \
+            exit"
 
 docker exec -ti ${CONTAINER} /bin/bash -c "/usr/bin/samba.sh -u \"example1;badpass\" \
             -u \"example2;badpass\" \
             -s \"public;/home/public\" \
             -s \"users;/srv;no;no;no;example1,example2\" \
-            -s \"example1 private;/home/example1;no;no;no;example1\" \
-            -s \"example2 private;/home/example2;no;no;no;example2\" \
+            -s \"example1 private;/home/example1;no;no;no;example1;none;example1\" \
+            -s \"example2 private;/home/example2;no;no;no;example2;none;example2\" \
  && exit"
 
+docker exec -ti ${CONTAINER} /bin/bash -c "chown example1:example1 /home/example1/ && \
+            chown example2:example2 /home/example2/ && \
+            chmod 777 /home/public/ && \
+            chmod 777 /home/example1/ && \
+            chmod 777 /home/example2/ && \
+            exit"
+
 docker restart ${CONTAINER}
+
+sleep 1
