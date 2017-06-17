@@ -28,10 +28,15 @@ class SambaHook(BaseHook):
         self.conn = self.get_connection(samba_conn_id)
 
     def auth(self, se, sh, w, u, p):
+        if self.conn.extra is not None:
+            extra_options = self.conn.extra_dejson
+            if 'workgroup' in extra_options:
+                w = extra_options['workgroup']
         return w, self.conn.login, self.conn.password
 
     def get_conn(self):
         ctx = smbc.Context(auth_fn=self.auth)
+        ctx.functionAuthData = self.auth
         ctx.optionNoAutoAnonymousLogin = True
         ctx.timeout = 60000
         return ctx
@@ -48,7 +53,6 @@ class SambaHook(BaseHook):
         try:
             ctx.stat(folder)
         except smbc.NoEntryError:
-            print("Creating directory {0}".format(folder))
             ret = ctx.mkdir(folder, 0)
             if ret != 0:
                 raise AirflowException(

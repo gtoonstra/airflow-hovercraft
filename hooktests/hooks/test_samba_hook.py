@@ -44,7 +44,8 @@ class SambaHookTest(BaseHookTest):
                 models.Connection(
                         conn_id='samba_hook_test', conn_type='samba',
                         host='localhost', login='example1',
-                        password='badpass', schema='example1 private'))
+                        password='badpass', schema='example1 private',
+                        extra='{"workgroup":"WORKGROUP"}'))
         self.samba_hook = SambaHook(samba_conn_id='samba_hook_test')
 
     def tearDown(self):
