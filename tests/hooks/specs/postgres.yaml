@@ -3,10 +3,13 @@
 name:  postgres_hook_test
 image: postgres:9.5
 environment:
-  POSTGRES_PASSWORD: secret
+  PG_PASSWORD: secret
 ports:
   5432/tcp: 5434
-uptest: psql -U postgres -h 127.0.0.1 -p 5434 -d postgres -c 'SELECT 1 as test;'
+uptest: 
+  script: psql -U postgres -h 127.0.0.1 -p 5434 -d postgres -c 'SELECT 1 as test;'
+  environment:
+    PG_PASSWORD: secret
 provisioning:
   script: ${PWD}/tests/hooks/provscripts/postgres.sh -h 127.0.0.1 -p 5434 -u postgres -s secret
   environment:

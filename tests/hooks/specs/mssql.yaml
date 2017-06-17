@@ -7,7 +7,10 @@ environment:
   SA_PASSWORD: secret123_
 ports:
   1433/tcp: 1433
-uptest: docker exec mssql_hook_test /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'secret123_' -Q "exec sp_who2;"
+uptest: 
+  script: docker exec mssql_hook_test /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'secret123_' -Q "exec sp_who2;"
+  environment:
+    FOO: bar
 provisioning:
   script: ${PWD}/tests/hooks/provscripts/mssql.py --host 127.0.0.1 --port 1433 --user SA --password secret123_ --database master
   environment:
