@@ -12,6 +12,6 @@ uptest:
   environment:
     FOO: bar
 provisioning:
-  script: ${PWD}/tests/hooks/provscripts/mssql.py --host 127.0.0.1 --port 1433 --user SA --password secret123_ --database master
+  script: ${PWD}/hooktests/hooks/provscripts/mssql.py --host 127.0.0.1 --port 1433 --user SA --password secret123_ --database master
   environment:
     FOO: bar

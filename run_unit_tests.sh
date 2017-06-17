@@ -40,6 +40,7 @@ airflow initdb
 if [ "${TRAVIS}" ]; then
     if [ -z "$nose_args" ]; then
       nose_args="--with-coverage \
+    --exclude-dir="hooktests/" \
     --cover-erase \
     --cover-html \
     --cover-package=hovercraft \

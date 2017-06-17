@@ -11,6 +11,6 @@ uptest:
   environment:
     PG_PASSWORD: secret
 provisioning:
-  script: ${PWD}/tests/hooks/provscripts/postgres.sh -h 127.0.0.1 -p 5434 -u postgres -s secret
+  script: ${PWD}/hooktests/hooks/provscripts/postgres.sh -h 127.0.0.1 -p 5434 -u postgres -s secret
   environment:
     FOO: bar

@@ -30,7 +30,7 @@ TMP_REPO_DIR = 'tmp'
 
 class MsSqlHookTest(BaseHookTest):
     def __init__(self, *args, **kwargs):
-        super(MsSqlHookTest, self).__init__('tests/hooks/specs/mssql.yaml',
+        super(MsSqlHookTest, self).__init__('hooktests/hooks/specs/mssql.yaml',
                                             *args,
                                             **kwargs)
 

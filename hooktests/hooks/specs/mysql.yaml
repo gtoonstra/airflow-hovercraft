@@ -11,6 +11,6 @@ uptest:
   environment:
     FOO: bar
 provisioning:
-  script: ${PWD}/tests/hooks/provscripts/mysql.sh -h 127.0.0.1 -p 6604 -u root -s secret
+  script: ${PWD}/hooktests/hooks/provscripts/mysql.sh -h 127.0.0.1 -p 6604 -u root -s secret
   environment:
     FOO: bar

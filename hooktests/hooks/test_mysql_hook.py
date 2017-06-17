@@ -30,7 +30,7 @@ TMP_REPO_DIR = 'tmp'
 
 class MySqlHookTest(BaseHookTest):
     def __init__(self, *args, **kwargs):
-        super(MySqlHookTest, self).__init__('tests/hooks/specs/mysql.yaml',
+        super(MySqlHookTest, self).__init__('hooktests/hooks/specs/mysql.yaml',
                                             *args,
                                             **kwargs)
 

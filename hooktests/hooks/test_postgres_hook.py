@@ -30,7 +30,7 @@ TMP_REPO_DIR = 'tmp'
 
 class PostgresHookTest(BaseHookTest):
     def __init__(self, *args, **kwargs):
-        super(PostgresHookTest, self).__init__('tests/hooks/specs/postgres.yaml',
+        super(PostgresHookTest, self).__init__('hooktests/hooks/specs/postgres.yaml',
                                                *args,
                                                **kwargs)
 
