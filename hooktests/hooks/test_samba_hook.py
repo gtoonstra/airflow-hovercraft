@@ -53,4 +53,4 @@ class SambaHookTest(BaseHookTest):
     def test_share(self):
         local_dir = os.path.dirname(__file__)
         datafile = os.path.join(local_dir, 'data', 'daily_report.csv')
-        rows = self.samba_hook.push_from_local('daily_report.csv', datafile)
+        self.samba_hook.push_from_local('daily_report.csv', datafile)
