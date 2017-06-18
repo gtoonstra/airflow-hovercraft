@@ -1,0 +1,12 @@
+# A very simple YAML document
+
+name:  s3_hook_test
+image: deppy/fake-s3:latest
+environment:
+  FOO: bar
+ports:
+  4569/tcp: 4569
+uptest: 
+  script: docker exec -it ${CONTAINER_ID} ps --no-headers -p 1 | grep fakes3
+provisioning:
+  script: ${PWD}/hooktests/hooks/provscripts/s3.py -c ${CONTAINER_ID} -H localhost -p 4569
